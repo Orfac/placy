@@ -1,6 +1,5 @@
 .DS_Store
-.idea/shelf
-/confluence/target
+.idea/
 /dependencies/repo
 /android.tests.dependencies
 /dependencies/android.tests.dependencies
