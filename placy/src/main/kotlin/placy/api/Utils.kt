@@ -1,7 +1,7 @@
 package placy.api
 
 internal class Utils {
-  internal companion object {
+  companion object {
     fun createArraySingleArgument(argument : Array<String>, argumentName : String) : String{
       return if (argument.isEmpty()) ""
       else "${argumentName}=${argument.joinToString(",")}&"
