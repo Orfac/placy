@@ -2,11 +2,8 @@ package placy.api
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.jackson.responseObject
-
-import com.github.kittinunf.result.Result;
-
+import com.github.kittinunf.result.Result
 import placy.dto.Category
-import java.lang.StringBuilder
 
 object Categories {
   val CATEGORIES_URL = "${Config.KUDAGO_URL}/place-categories/?"
