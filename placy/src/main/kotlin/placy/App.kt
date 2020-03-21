@@ -1,6 +1,7 @@
 package placy
 
 import placy.console.commands.CategoriesCommand
+import placy.console.resolver.CommandResolver
 import placy.validation.ArgumentsValidator
 import placy.validation.ValidationException
 
@@ -16,6 +17,7 @@ class App {
             "Given arguments are incorrect, Cause - ${ex.message} \n" +
                 "please set them as specified in --help")
       }
+      val command = CommandResolver().resolve(args.first())
       println(CategoriesCommand().execute(args))
     }
 
