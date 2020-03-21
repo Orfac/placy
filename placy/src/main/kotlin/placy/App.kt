@@ -13,12 +13,16 @@ class App {
       try {
         ArgumentsValidator().validate(args)
       } catch (ex: ValidationException) {
-        println(
-            "Given arguments are incorrect, Cause - ${ex.message} \n" +
-                "please set them as specified in --help")
+        printErrorMessage(ex.message)
       }
+
       val command = CommandResolver().resolve(args.first())
-      println(CategoriesCommand().execute(args))
+      println(command.execute(args))
+    }
+
+    private fun printErrorMessage(message: String?) {
+      println("Given arguments are incorrect, Cause - $message \n" +
+          "please set them as specified in --help")
     }
 
   }
