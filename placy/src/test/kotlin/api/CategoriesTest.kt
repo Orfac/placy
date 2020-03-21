@@ -2,6 +2,7 @@ package api
 
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import placy.api.Categories
 import placy.dto.Category
@@ -74,6 +75,38 @@ class CategoriesTest {
     thenCategoriesArrayElementsAreOrderedByIdDesc()
   }
 
+  @BeforeEach
+  private fun givenDefaultCategories() {
+    categories = Categories
+    categories.orderBy = ""
+    categories.fields = emptyArray()
+    categories.language = ""
+  }
+
+  private fun givenCategoriesWithOrderingByNameAsc() {
+    categories.orderBy = "name"
+  }
+
+  private fun givenCategoriesWithOrderingByIdDesc() {
+    categories.orderBy = "-id"
+  }
+
+  private fun givenCategoriesWithNameAndIdFields() {
+    categories.fields = arrayOf("name", "id")
+  }
+
+  private fun givenCategoriesWithRussianLanguage() {
+    categories.language = "ru"
+  }
+
+  private fun givenCategoriesWithEnglishLanguage() {
+    categories.language = "en"
+  }
+
+  private fun whenRetrieveCategories() {
+    categoriesArray = categories.getCategories()
+  }
+
   private fun thenCategoriesArrayElementsAreOrderedByIdDesc() {
     for (i in 0..categoriesArray.size - 2) {
       assertTrue(
@@ -90,50 +123,14 @@ class CategoriesTest {
     }
   }
 
-  private fun givenCategoriesWithOrderingByNameAsc() {
-    givenDefaultCategories()
-    categories.orderBy = "name"
-  }
-
-  private fun givenCategoriesWithOrderingByIdDesc() {
-    givenDefaultCategories()
-    categories.orderBy = "-id"
-  }
-
   private fun thenCategoriesArrayElementsAreFilledWithoutSlug() {
     categoriesArray.all { it.name != "" && it.id != 0 && it.slug == "" }
-  }
-
-  private fun givenCategoriesWithNameAndIdFields() {
-    givenDefaultCategories()
-    categories.fields = arrayOf("name", "id")
-  }
-
-  private fun givenCategoriesWithRussianLanguage() {
-    givenDefaultCategories()
-    categories.language = "ru"
-  }
-
-  private fun givenCategoriesWithEnglishLanguage() {
-    givenDefaultCategories()
-    categories.language = "en"
   }
 
   private fun thenCategoriesArrayElementsAreFilledWithData() =
       assertTrue(categoriesArray.all(this::isCategoryFullyFilled))
 
   private fun thenCategoriesArrayNotNull() = assertNotNull(categoriesArray)
-
-  private fun whenRetrieveCategories() {
-    categoriesArray = categories.getCategories()
-  }
-
-  private fun givenDefaultCategories() {
-    categories = Categories
-    categories.orderBy = ""
-    categories.fields = emptyArray()
-    categories.language = ""
-  }
 
   private fun isCategoryFullyFilled(category: Category): Boolean =
       category.id != 0 && category.name != "" && category.slug != ""

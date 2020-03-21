@@ -1,12 +1,10 @@
 package validation
 
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import placy.validation.ArgumentsValidator
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.assertThrows
 import placy.validation.ValidationException
-
 
 class ArgumentsValidatorTest {
 
@@ -14,34 +12,57 @@ class ArgumentsValidatorTest {
   lateinit var arguments: Array<String>
 
   @Test
-  fun `empty arguments pass validation`(){
-    givenDefaultValidatorWithEmptyArguments()
+  fun `empty arguments pass validation`() {
+    givenWithEmptyArguments()
     whenValidate()
   }
 
   @Test
-  fun `many arguments don't pass validation`(){
-    givenDefaultValidatorWithManyArguments()
-    assertThrows(ValidationException::class.java, this :: whenValidate)
+  fun `many arguments don't pass validation`() {
+    givenWithManyArguments()
+    thenThrowsValidationErrorWhenValidating()
   }
 
+  @Test
+  fun `wrong commands don't pass validation`() {
+    givenWithWrongArguments()
+    thenThrowsValidationErrorWhenValidating()
+  }
 
-  private fun givenDefaultValidatorWithManyArguments() {
-    givenDefaultValidator()
-    arguments = Array(20){""}
+  @Test
+  fun `correct command pass validation`() {
+    givenWithExistingCommand()
+    whenValidate()
+  }
+
+  private fun givenWithExistingCommand() {
+    arguments = arrayOf("categories")
+  }
+
+  private fun thenThrowsValidationErrorWhenValidating() {
+    assertThrows(ValidationException::class.java, this::whenValidate)
+  }
+
+  @BeforeEach
+  fun givenDefaultValidator() {
+    validator = ArgumentsValidator()
+  }
+
+  private fun givenWithWrongArguments() {
+    arguments = arrayOf("wrong-command")
+  }
+
+  private fun givenWithManyArguments() {
+    arguments = Array(20) { "" }
   }
 
   private fun whenValidate() {
     validator.validate(arguments)
   }
 
-  private fun givenDefaultValidatorWithEmptyArguments() {
-    givenDefaultValidator()
+  private fun givenWithEmptyArguments() {
     arguments = emptyArray()
   }
 
-  fun givenDefaultValidator(){
-    validator = ArgumentsValidator()
-  }
 
 }
