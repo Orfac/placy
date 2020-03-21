@@ -6,9 +6,4 @@ class AppTest {
   fun `main method runs without exceptions`(){
     App.main(emptyArray())
   }
-
-  @Test
-  fun `main method runs with categories`(){
-    App.main(arrayOf("categories"))
-  }
 }
