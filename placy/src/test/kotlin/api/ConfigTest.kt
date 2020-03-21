@@ -1,3 +1,5 @@
+package api
+
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.httpGet
 import org.junit.jupiter.api.Assertions.assertEquals
