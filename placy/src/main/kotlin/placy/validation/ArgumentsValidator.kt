@@ -2,7 +2,7 @@ package placy.validation
 
 class ArgumentsValidator {
   companion object {
-    val validCommandNames : Array<String> = arrayOf("categories")
+    val validCommandNames : Array<String> = arrayOf("categories", "places","cities")
   }
 
   fun validate(arguments: Array<String>) {
