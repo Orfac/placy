@@ -9,9 +9,9 @@ import placy.validation.ValidationException
 class CommandResolver {
 
   companion object Commands {
-    val CITIES = "cities"
-    val CATEGORIES = "categories"
-    val DEFAULT = ""
+    const val CITIES = "cities"
+    const val CATEGORIES = "categories"
+    const val DEFAULT = ""
   }
 
   fun resolve(commandName : String) : Command{
