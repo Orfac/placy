@@ -1,6 +1,5 @@
 package placy
 
-import placy.console.commands.CategoriesCommand
 import placy.console.resolver.CommandResolver
 import placy.validation.ArgumentsValidator
 import placy.validation.ValidationException
