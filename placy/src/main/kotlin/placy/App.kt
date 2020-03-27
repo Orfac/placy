@@ -19,7 +19,10 @@ class App {
 
       val commandName = if (args.isNotEmpty()) args.first() else ""
       val command = CommandResolver().resolve(commandName)
-      println(command.execute(args))
+      val commandArguments = args.sliceArray(1 until args.size)
+
+      val result = command.execute(commandArguments)
+      println(result)
     }
 
     private fun printErrorMessage(message: String?) {

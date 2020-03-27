@@ -1,9 +1,6 @@
 package placy.console.resolver
 
-import placy.console.commands.CategoriesCommand
-import placy.console.commands.CitiesCommand
-import placy.console.commands.Command
-import placy.console.commands.DefaultCommand
+import placy.console.commands.*
 import placy.validation.ValidationException
 
 class CommandResolver {
@@ -11,6 +8,7 @@ class CommandResolver {
   companion object Commands {
     const val CITIES = "cities"
     const val CATEGORIES = "categories"
+    const val HELP = "help"
     const val DEFAULT = ""
   }
 
@@ -19,6 +17,7 @@ class CommandResolver {
       CATEGORIES -> CategoriesCommand()
       CITIES -> CitiesCommand()
       DEFAULT -> DefaultCommand()
+      HELP -> HelpCommand()
       else -> throw ValidationException("Cannot resolve command name")
     }
   }
