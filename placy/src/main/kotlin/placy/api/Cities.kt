@@ -7,14 +7,15 @@ import placy.dto.Category
 import placy.dto.City
 
 object Cities {
-  val CITIES_URL = "${Config.KUDAGO_URL}/locations/?"
+  val CITIES_URL = "${Config.KUDAGO_URL}/locations"
   var language: String = ""
   var fields: Array<String> = emptyArray()
   var orderBy: String = ""
 
   fun getCities(): Array<City> {
-    val requestUrl = buildURL()
-    val (_, _, result) = Fuel.get(requestUrl).responseObject<Array<City>>()
+    val requestUrl = CITIES_URL
+    val params = getParams()
+    val (_, _, result) = Fuel.get(requestUrl, params).responseObject<Array<City>>()
 
     when (result) {
       is Result.Failure -> {
@@ -26,10 +27,9 @@ object Cities {
     }
   }
 
-  private fun buildURL(): String {
-    val languageArgument = Utils.createArgument(Categories.language, "lang")
-    val fieldsArgument = Utils.createArraySingleArgument(Categories.fields, "fields")
-    val orderByFieldsArgument = Utils.createArgument(Categories.orderBy, "order_by")
-    return CITIES_URL + languageArgument + fieldsArgument + orderByFieldsArgument
-  }
+  private fun getParams() =
+      listOf<Pair<String, Any?>>(
+          Pair("lang", language),
+          Pair("fields", fields),
+          Pair("order_by", orderBy))
 }
