@@ -10,13 +10,15 @@ class App {
 
     @JvmStatic
     fun main(args: Array<String>) {
+
       try {
         ArgumentsValidator().validate(args)
       } catch (ex: ValidationException) {
         printErrorMessage(ex.message)
       }
 
-      val command = CommandResolver().resolve(args.first())
+      val commandName = if (args.isNotEmpty()) args.first() else ""
+      val command = CommandResolver().resolve(commandName)
       println(command.execute(args))
     }
 
