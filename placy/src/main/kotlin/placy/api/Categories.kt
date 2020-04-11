@@ -12,8 +12,10 @@ object Categories {
   var orderBy: String = ""
 
   fun getCategories(): Array<Category> {
-    val requestUrl = buildURL()
-    val (_, _, result) = Fuel.get(requestUrl).responseObject<Array<Category>>()
+    val requestUrl = CATEGORIES_URL
+    val requestParameters = getRequestParameters()
+    val result = Fuel.get(requestUrl, requestParameters)
+        .responseObject<Array<Category>>().third
 
     when (result) {
       is Result.Failure -> {
@@ -25,10 +27,9 @@ object Categories {
     }
   }
 
-  private fun buildURL(): String {
-    val languageArgument = Utils.createArgument(language, "lang")
-    val fieldsArgument = Utils.createArraySingleArgument(fields, "fields")
-    val orderByFieldsArgument = Utils.createArgument(orderBy, "order_by")
-    return CATEGORIES_URL + languageArgument + fieldsArgument + orderByFieldsArgument
-  }
+  private fun getRequestParameters() =
+      listOf<Pair<String, Any?>>(
+          Pair("lang", this.language),
+          Pair("fields", this.fields),
+          Pair("order_by", this.orderBy))
 }

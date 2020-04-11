@@ -3,8 +3,6 @@ package placy.api
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.jackson.responseObject
 import com.github.kittinunf.result.Result
-import placy.dto.Category
-import placy.dto.City
 import placy.dto.Place
 
 object Places {
@@ -14,12 +12,14 @@ object Places {
   var orderBy: String = ""
 
   fun getCities(): Array<Place> {
-    val requestUrl = buildURL()
-    val (_, _, result) = Fuel.get(requestUrl).responseObject<Array<Place>>()
+    val requestUrl = PLACES_URL
+    val requestParameters = getRequestParameters()
+    val result = Fuel.get(requestUrl, requestParameters)
+        .responseObject<Array<Place>>().third
 
     when (result) {
       is Result.Failure -> {
-        throw Exception("Cannot get cities from remote url $requestUrl")
+        throw Exception("Cannot get places from remote url $requestUrl")
       }
       is Result.Success -> {
         return result.value
@@ -27,10 +27,9 @@ object Places {
     }
   }
 
-  private fun buildURL(): String {
-    val languageArgument = Utils.createArgument(Categories.language, "lang")
-    val fieldsArgument = Utils.createArraySingleArgument(Categories.fields, "fields")
-    val orderByFieldsArgument = Utils.createArgument(Categories.orderBy, "order_by")
-    return PLACES_URL + languageArgument + fieldsArgument + orderByFieldsArgument
-  }
+  private fun getRequestParameters() =
+      listOf<Pair<String, Any?>>(
+          Pair("lang", this.language),
+          Pair("fields", this.fields),
+          Pair("order_by", this.orderBy))
 }

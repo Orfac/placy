@@ -3,7 +3,6 @@ package placy.api
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.jackson.responseObject
 import com.github.kittinunf.result.Result
-import placy.dto.Category
 import placy.dto.City
 
 object Cities {
@@ -14,8 +13,9 @@ object Cities {
 
   fun getCities(): Array<City> {
     val requestUrl = CITIES_URL
-    val params = getParams()
-    val (_, _, result) = Fuel.get(requestUrl, params).responseObject<Array<City>>()
+    val params = getRequestParameters()
+    val result = Fuel.get(requestUrl, params)
+        .responseObject<Array<City>>().third
 
     when (result) {
       is Result.Failure -> {
@@ -27,9 +27,10 @@ object Cities {
     }
   }
 
-  private fun getParams() =
+  private fun getRequestParameters() =
       listOf<Pair<String, Any?>>(
-          Pair("lang", language),
-          Pair("fields", fields),
-          Pair("order_by", orderBy))
+          Pair("lang", this.language),
+          Pair("fields", this.fields),
+          Pair("order_by", this.orderBy))
+
 }
