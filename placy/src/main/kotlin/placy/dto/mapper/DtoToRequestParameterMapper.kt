@@ -1,5 +1,6 @@
-package placy.dto
+package placy.dto.mapper
 
+import placy.dto.requests.PlaceCommentsRequest
 import placy.dto.requests.PlaceDetailedRequest
 import placy.dto.requests.PlacesRequest
 
@@ -22,6 +23,18 @@ class DtoToRequestParameterMapper {
       listOf<Pair<String, Any?>>(
           Pair("lang", placeDetailedRequest.language),
           Pair("fields", placeDetailedRequest.fields),
-          Pair("order_by", placeDetailedRequest.place_id)
+          Pair("place_id", placeDetailedRequest.place_id)
+      )
+  fun getRequestParameters(placeCommentsRequest: PlaceCommentsRequest) =
+      listOf<Pair<String, Any?>>(
+          Pair("lang", placeCommentsRequest.language),
+          Pair("fields", placeCommentsRequest.fields),
+          Pair("place_id", placeCommentsRequest.place_id),
+          Pair("order_by", placeCommentsRequest.orderBy),
+          Pair("page", placeCommentsRequest.page),
+          Pair("page_size", placeCommentsRequest.page_size),
+          Pair("ids", placeCommentsRequest.ids)
+
+
       )
 }

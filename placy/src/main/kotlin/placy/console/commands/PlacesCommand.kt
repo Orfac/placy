@@ -21,7 +21,7 @@ class PlacesCommand : Command {
   private fun resolveRequestData(arguments: Array<String>): PlacesRequest {
     var placesRequest = PlacesRequest()
 
-    var index = 1
+    var index = 0
     while (index < arguments.size) {
       when (val argument = arguments[index]) {
         "lang" -> {

@@ -17,7 +17,7 @@ class CategoriesCommand : Command {
   }
 
   private fun resolveArguments(arguments: Array<String>) {
-    var index = 1
+    var index = 0
     while (index < arguments.size){
       val argument = arguments[index]
       when (argument){

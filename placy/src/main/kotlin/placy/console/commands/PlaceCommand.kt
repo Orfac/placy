@@ -21,19 +21,19 @@ class PlaceCommand : Command {
 
   private fun resolveRequestData(arguments: Array<String>): PlaceDetailedRequest {
 
-    if (arguments.size < 2){
+    if (arguments.isEmpty()){
       throw ValidationException("In place command you need to specify at least place id")
     }
 
-    var id: Int = 0
+    var id: Int
     try {
-      id = arguments[1].toInt()
+      id = arguments[0].toInt()
     } catch (ex: NumberFormatException) {
-      throw ValidationException("Unable to get place id, given was ${arguments[1]}")
+      throw ValidationException("Unable to get place id, given was ${arguments[0]}")
     }
     var placeRequest = PlaceDetailedRequest(place_id = id)
 
-    var index = 2
+    var index = 1
     while (index < arguments.size) {
       when (val argument = arguments[index]) {
         "lang" -> {
