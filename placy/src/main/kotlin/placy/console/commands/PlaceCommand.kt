@@ -15,8 +15,13 @@ class PlaceCommand : Command {
     } catch (ex: ValidationException) {
       return ex.message ?: ""
     }
-    val place = placesApi.getPlace(placeRequest)
-    return arrayOf(place).contentDeepToString()
+    return try {
+      val place = placesApi.getPlace(placeRequest)
+      arrayOf(place).contentDeepToString()
+    } catch (ex : Exception) {
+      ex.message.toString()
+    }
+
   }
 
   private fun resolveRequestData(arguments: Array<String>): PlaceDetailedRequest {

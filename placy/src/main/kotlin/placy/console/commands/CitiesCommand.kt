@@ -12,8 +12,14 @@ class CitiesCommand : Command {
     } catch (ex : ValidationException){
       return ex.message ?: ""
     }
-    val cities = citiesApi.getCities()
-    return cities.contentToString()
+    return try{
+      val cities = citiesApi.getCities()
+      cities.contentToString()
+    } catch (ex : Exception){
+      ex.message.toString()
+    }
+
+
   }
 
   private fun resolveArguments(arguments: Array<String>) {

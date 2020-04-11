@@ -49,8 +49,7 @@ object Places {
   fun getPlacesComments(placeCommentsRequest: PlaceCommentsRequest) : Array<Comment>{
     val requestUrl = PLACES_URL
     val requestParameters = mapper.getRequestParameters(placeCommentsRequest)
-    val (_, _, result) = Fuel.get(requestUrl, requestParameters)
-        .responseObject<Pageable<Comment>>()
+    val (_, _, result) = Fuel.get(requestUrl, requestParameters).responseObject<Pageable<Comment>>()
 
     when (result) {
       is Result.Failure -> {

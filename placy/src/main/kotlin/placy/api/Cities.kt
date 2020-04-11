@@ -14,8 +14,7 @@ object Cities {
   fun getCities(): Array<City> {
     val requestUrl = CITIES_URL
     val params = getRequestParameters()
-    val result = Fuel.get(requestUrl, params)
-        .responseObject<Array<City>>().third
+    val result = Fuel.get(requestUrl, params).responseObject<Array<City>>().third
 
     when (result) {
       is Result.Failure -> {
