@@ -28,6 +28,7 @@ class HelpCommand : Command {
           "   order_by = [id, slug, name] specify ordering by field\n"
       is HelpCommand -> "Shows help information about command\n" +
           "Usage: placy help command_name\n"
+      is PlacesCommand -> ""
       is DefaultCommand -> "Executes search for 5 places at Saint-Petersburg"
       else -> throw Exception("Cannot map command to any of the existing commands")
     }

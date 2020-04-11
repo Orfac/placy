@@ -3,19 +3,36 @@ package placy.api
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.jackson.responseObject
 import com.github.kittinunf.result.Result
+import placy.dto.DtoToRequestParameterMapper
+import placy.dto.Pageable
 import placy.dto.Place
+import placy.dto.requests.PlaceDetailedRequest
+import placy.dto.requests.PlacesRequest
 
 object Places {
   val PLACES_URL = "${Config.KUDAGO_URL}/places/?"
-  var language: String = ""
-  var fields: Array<String> = emptyArray()
-  var orderBy: String = ""
+  val mapper = DtoToRequestParameterMapper()
 
-  fun getCities(): Array<Place> {
+  fun getPlaces(placesRequest: PlacesRequest): Array<Place> {
     val requestUrl = PLACES_URL
-    val requestParameters = getRequestParameters()
-    val result = Fuel.get(requestUrl, requestParameters)
-        .responseObject<Array<Place>>().third
+    val requestParameters = mapper.getRequestParameters(placesRequest)
+    val (_, _, result) = Fuel.get(requestUrl, requestParameters)
+        .responseObject<Pageable<Place>>()
+
+    when (result) {
+      is Result.Failure -> {
+        throw Exception("Cannot get places from remote url $requestUrl")
+      }
+      is Result.Success -> {
+        return result.value.results
+      }
+    }
+  }
+  fun getPlace(placeDetailedRequest: PlaceDetailedRequest): Place {
+    val requestUrl = PLACES_URL
+    val requestParameters = mapper.getRequestParameters(placeDetailedRequest)
+    val (_, _, result) = Fuel.get(requestUrl, requestParameters)
+        .responseObject<Place>()
 
     when (result) {
       is Result.Failure -> {
@@ -27,9 +44,6 @@ object Places {
     }
   }
 
-  private fun getRequestParameters() =
-      listOf<Pair<String, Any?>>(
-          Pair("lang", this.language),
-          Pair("fields", this.fields),
-          Pair("order_by", this.orderBy))
+
+
 }
