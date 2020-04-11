@@ -20,11 +20,16 @@ class PlaceCommand : Command {
   }
 
   private fun resolveRequestData(arguments: Array<String>): PlaceDetailedRequest {
-    val id: Int = 0
+
+    if (arguments.size < 2){
+      throw ValidationException("In place command you need to specify at least place id")
+    }
+
+    var id: Int = 0
     try {
-      val id = arguments[1].toInt()
+      id = arguments[1].toInt()
     } catch (ex: NumberFormatException) {
-      throw ValidationException("Unable to resolve ${arguments[1]}, please check order of arguments")
+      throw ValidationException("Unable to get place id, given was ${arguments[1]}")
     }
     var placeRequest = PlaceDetailedRequest(place_id = id)
 

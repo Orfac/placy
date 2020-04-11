@@ -11,11 +11,15 @@ class AppHelpTest {
     App.main(arrayOf("help","categories"))
   }
   @Test
-  fun `main method runs with help command about help command`(){
+  fun `main method runs with help command about places command`(){
     App.main(arrayOf("help", "places"))
   }
   @Test
-  fun `main method runs with help command about places command`(){
+  fun `main method runs with help command about place command`(){
+    App.main(arrayOf("help", "place"))
+  }
+  @Test
+  fun `main method runs with help command about help command`(){
     App.main(arrayOf("help", "help"))
   }
 

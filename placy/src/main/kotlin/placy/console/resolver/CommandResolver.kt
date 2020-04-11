@@ -11,6 +11,7 @@ class CommandResolver {
     const val HELP = "help"
     const val DEFAULT = ""
     const val PLACES = "places"
+    const val PLACE = "place"
   }
 
   fun resolve(commandName : String) : Command{
@@ -20,7 +21,8 @@ class CommandResolver {
       DEFAULT -> DefaultCommand()
       HELP -> HelpCommand()
       PLACES -> PlacesCommand()
-      else -> throw ValidationException("Cannot resolve command name ")
+      PLACE -> PlaceCommand()
+      else -> throw ValidationException("Cannot resolve command name $commandName")
     }
   }
 }
