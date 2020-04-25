@@ -13,21 +13,13 @@ class ConfigTest {
 
   @Test
   fun `api request resulted with 200 OK`() {
-    givenDefaultUrl()
-    whenGetRequested()
-    thenReturnsHttpOk()
-  }
+    // Given
+    val requestString = Config.KUDAGO_URL
 
-  private fun thenReturnsHttpOk() {
+    // When
+    val (_, response, _) = requestString.httpGet().responseString()
+
+    // Then
     assertEquals(200,response.statusCode)
-  }
-
-  private fun whenGetRequested() {
-    val (_, res, _) = requestString.httpGet().responseString()
-    response = res
-  }
-
-  private fun givenDefaultUrl() {
-    requestString = Config.KUDAGO_URL
   }
 }

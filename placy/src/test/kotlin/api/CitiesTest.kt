@@ -1,27 +1,33 @@
 package api
 
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.jackson.responseObject
+import com.github.kittinunf.result.Result
+import io.mockk.every
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import placy.api.Cities
 import placy.dto.City
+import placy.dto.Coords
+import placy.dto.requests.DefaultRequestDTO
 
 class CitiesTest {
 
-  lateinit var cities: Cities
+  lateinit var citiesRequest: DefaultRequestDTO
   lateinit var citiesArray: Array<City>
 
   @Test
   fun `cities could be retrieved`() {
-    givenDefaultCities()
+    givenDefaultCitiesRequest()
     whenRetrieveCities()
     thenCitiesArrayNotNull()
   }
 
   @Test
   fun `retrieved cities are not empty`() {
-    givenDefaultCities()
+    givenDefaultCitiesRequest()
     whenRetrieveCities()
     thenCitiesArrayElementsAreFilledWithData()
   }
@@ -50,7 +56,7 @@ class CitiesTest {
   @Test
   fun `cities with fields name and id are retrieved without slug`() {
     givenCitiesWithFieldsWithoutSlug()
-    whenRetrieveCities()
+    whenRetrieveCitiesWithoutSlugField()
     thenCitiesArrayElementsAreFilledWithoutSlug()
   }
 
@@ -61,33 +67,43 @@ class CitiesTest {
     thenCitiesArrayNotNull()
   }
 
-
   @BeforeEach
-  private fun givenDefaultCities() {
-    cities = Cities
-    cities.orderBy = ""
-    cities.fields = emptyArray()
-    cities.language = ""
+  private fun givenDefaultCitiesRequest() {
+    citiesRequest = DefaultRequestDTO()
   }
 
   private fun givenCitiesWithOrderingByNameAsc() {
-    cities.orderBy = "name"
+    citiesRequest.orderBy = "name"
   }
 
   private fun givenCitiesWithFieldsWithoutSlug() {
-    cities.fields = arrayOf("name", "coords","language", "timezone")
+    citiesRequest.fields = arrayOf("name", "coords", "language", "timezone")
   }
 
   private fun givenCitiesWithRussianLanguage() {
-    cities.language = "ru"
+    citiesRequest.language = "ru"
   }
 
   private fun givenCitiesWithEnglishLanguage() {
-    cities.language = "en"
+    citiesRequest.language = "en"
   }
 
   private fun whenRetrieveCities() {
-    citiesArray = cities.getCities()
+    val citiesApi = Cities()
+    every {
+      Fuel.get(citiesApi.CITIES_URL, citiesRequest.toList()).responseObject<Array<City>>().third
+    } returns Result.Success(arrayOf(fulfilledCity(), fulfilledCity(), fulfilledCity()))
+
+    citiesArray = citiesApi.getCities(citiesRequest)
+  }
+
+  private fun whenRetrieveCitiesWithoutSlugField() {
+    val citiesApi = Cities()
+    every {
+      Fuel.get(citiesApi.CITIES_URL, citiesRequest.toList()).responseObject<Array<City>>().third
+    } returns Result.Success(arrayOf(cityWithoutSlug(), cityWithoutSlug(), cityWithoutSlug()))
+
+    citiesArray = citiesApi.getCities(citiesRequest)
   }
 
   private fun thenCitiesArrayElementsAreFilledWithoutSlug() {
@@ -105,4 +121,20 @@ class CitiesTest {
 
   private fun isCityFilledWithNameAndSlug(city: City): Boolean =
       city.name != "" && city.slug != ""
+
+  private fun fulfilledCity() =
+      City(
+          name = "City",
+          slug = "slug",
+          timezone = "timezone",
+          coords = Coords(1.0, 2.0),
+          language = "ru")
+
+  private fun cityWithoutSlug() =
+      City(
+          name = "City",
+          slug = "",
+          timezone = "timezone",
+          coords = Coords(1.0, 2.0),
+          language = "ru")
 }

@@ -6,10 +6,11 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import placy.api.Categories
 import placy.dto.Category
+import placy.dto.requests.DefaultRequestDTO
 
 class CategoriesTest {
 
-  lateinit var categories: Categories
+  lateinit var categoriesRequest: DefaultRequestDTO
   lateinit var categoriesArray: Array<Category>
 
   @Test
@@ -77,34 +78,32 @@ class CategoriesTest {
 
   @BeforeEach
   private fun givenDefaultCategories() {
-    categories = Categories
-    categories.orderBy = ""
-    categories.fields = emptyArray()
-    categories.language = ""
+    categoriesRequest = DefaultRequestDTO()
   }
 
   private fun givenCategoriesWithOrderingByNameAsc() {
-    categories.orderBy = "name"
+    categoriesRequest.orderBy = "name"
   }
 
   private fun givenCategoriesWithOrderingByIdDesc() {
-    categories.orderBy = "-id"
+    categoriesRequest.orderBy = "-id"
   }
 
   private fun givenCategoriesWithNameAndIdFields() {
-    categories.fields = arrayOf("name", "id")
+    categoriesRequest.fields = arrayOf("name", "id")
   }
 
   private fun givenCategoriesWithRussianLanguage() {
-    categories.language = "ru"
+    categoriesRequest.language = "ru"
   }
 
   private fun givenCategoriesWithEnglishLanguage() {
-    categories.language = "en"
+    categoriesRequest.language = "en"
   }
 
   private fun whenRetrieveCategories() {
-    categoriesArray = categories.getCategories()
+    val categoriesApi = Categories()
+    categoriesArray = categoriesApi.getCategories(categoriesRequest)
   }
 
   private fun thenCategoriesArrayElementsAreOrderedByIdDesc() {
