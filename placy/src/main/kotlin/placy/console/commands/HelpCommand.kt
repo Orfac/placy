@@ -1,6 +1,7 @@
 package placy.console.commands
 
 import placy.console.resolver.CommandResolver
+import placy.console.validation.ValidationException
 
 class HelpCommand : Command {
   override fun execute(arguments: Array<String>): String {
@@ -45,7 +46,7 @@ class HelpCommand : Command {
           "   lang = [en, ru] change categories from russian to english\n" +
           "   fields = [slug, name, id] specify fields to be shown, e.g. fields slug,name\n"
       is DefaultCommand -> "Executes search for 5 places at Saint-Petersburg"
-      else -> throw Exception("Cannot map command to any of the existing commands")
+      else -> throw ValidationException("Cannot map command to any of the existing commands")
     }
   }
 

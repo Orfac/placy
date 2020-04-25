@@ -8,4 +8,12 @@ class PlaceDetailedRequest(
       "is_closed", "phone", "timetable", "images",
       "description", "subway", "categories"),
   var place_id: Int
-)
+) : RequestParams {
+  override fun toList(): List<Pair<String, Any?>> {
+    return listOf<Pair<String, Any?>>(
+        Pair("lang", language),
+        Pair("fields", fields),
+        Pair("place_id", place_id))
+  }
+
+}

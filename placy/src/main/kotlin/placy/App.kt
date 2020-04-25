@@ -1,8 +1,8 @@
 package placy
 
 import placy.console.resolver.CommandResolver
-import placy.validation.ArgumentsValidator
-import placy.validation.ValidationException
+import placy.console.validation.ArgumentsValidator
+import placy.console.validation.ValidationException
 
 class App {
   companion object {

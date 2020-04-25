@@ -1,6 +1,6 @@
 package placy.dto.requests
 
-data class PlacesRequest(
+class PlacesRequest(
   var language: String = "",
   var fields: Array<String> = arrayOf(
       "id", "title", "slug",
@@ -16,4 +16,20 @@ data class PlacesRequest(
   var lat: Double = 55.7,
   var radius: Int = 900000,
   var ids: Array<String> = emptyArray()
-)
+) : RequestParams {
+  override fun toList(): List<Pair<String, Any?>> {
+    return listOf<Pair<String, Any?>>(
+        Pair("lang", language),
+        Pair("fields", fields),
+        Pair("order_by", orderBy),
+        Pair("page", page),
+        Pair("page_size", pageSize),
+        Pair("location", location),
+        Pair("categories", categories),
+        Pair("ids", ids),
+        Pair("lon", lon),
+        Pair("lat", lat),
+        Pair("radius", radius))
+  }
+
+}

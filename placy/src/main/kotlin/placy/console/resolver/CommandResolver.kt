@@ -1,7 +1,7 @@
 package placy.console.resolver
 
 import placy.console.commands.*
-import placy.validation.ValidationException
+import placy.console.validation.ValidationException
 
 class CommandResolver {
 

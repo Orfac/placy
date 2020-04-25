@@ -1,11 +1,11 @@
 package placy.console.commands
 
 import placy.api.Places
+import placy.api.exceptions.ApiException
 import placy.dto.requests.PlacesRequest
-import placy.validation.ValidationException
+import placy.console.validation.ValidationException
 
 class PlacesCommand : Command {
-  val placesApi = Places
 
   override fun execute(arguments: Array<String>): String {
     val placesRequest: PlacesRequest
@@ -14,8 +14,14 @@ class PlacesCommand : Command {
     } catch (ex: ValidationException) {
       return ex.message ?: ""
     }
-    val places = placesApi.getPlaces(placesRequest)
-    return places.contentDeepToString()
+
+    return try {
+      val places = Places().getPlaces(placesRequest)
+      return places.contentDeepToString()
+    } catch (ex: ApiException) {
+      ex.message.toString()
+    }
+
   }
 
   private fun resolveRequestData(arguments: Array<String>): PlacesRequest {

@@ -4,20 +4,18 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.jackson.responseObject
 import com.github.kittinunf.result.Result
 import placy.dto.Comment
-import placy.dto.mapper.DtoToRequestParameterMapper
 import placy.dto.Pageable
 import placy.dto.Place
 import placy.dto.requests.PlaceCommentsRequest
 import placy.dto.requests.PlaceDetailedRequest
 import placy.dto.requests.PlacesRequest
 
-object Places {
+class Places {
   val PLACES_URL = "${Config.KUDAGO_URL}/places/?"
-  val mapper = DtoToRequestParameterMapper()
 
   fun getPlaces(placesRequest: PlacesRequest): Array<Place> {
     val requestUrl = PLACES_URL
-    val requestParameters = mapper.getRequestParameters(placesRequest)
+    val requestParameters = placesRequest.toList()
     val (_, _, result) = Fuel.get(requestUrl, requestParameters)
         .responseObject<Pageable<Place>>()
 
@@ -32,7 +30,7 @@ object Places {
   }
   fun getPlace(placeDetailedRequest: PlaceDetailedRequest): Place {
     val requestUrl = PLACES_URL
-    val requestParameters = mapper.getRequestParameters(placeDetailedRequest)
+    val requestParameters = placeDetailedRequest.toList()
     val (_, _, result) = Fuel.get(requestUrl, requestParameters)
         .responseObject<Place>()
 
@@ -48,7 +46,7 @@ object Places {
 
   fun getPlacesComments(placeCommentsRequest: PlaceCommentsRequest) : Array<Comment>{
     val requestUrl = PLACES_URL
-    val requestParameters = mapper.getRequestParameters(placeCommentsRequest)
+    val requestParameters = placeCommentsRequest.toList()
     val (_, _, result) = Fuel.get(requestUrl, requestParameters).responseObject<Pageable<Comment>>()
 
     when (result) {

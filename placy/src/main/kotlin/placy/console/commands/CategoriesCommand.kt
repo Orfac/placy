@@ -1,37 +1,47 @@
 package placy.console.commands
 
 import placy.api.Categories
-import placy.validation.ValidationException
+import placy.api.Cities
+import placy.api.exceptions.ApiException
+import placy.console.validation.ValidationException
+import placy.dto.requests.DefaultRequestDTO
 
 class CategoriesCommand : Command {
-  val categoriesApi = Categories
 
-  override fun execute(arguments: Array<String>) : String {
+  override fun execute(arguments: Array<String>): String {
+    val categoriesRequestDTO: DefaultRequestDTO
     try {
-      resolveArguments(arguments)
-    } catch (ex : ValidationException){
-      return ex.message ?: ""
+      categoriesRequestDTO = resolveCategoriesRequestDTO(arguments)
+    } catch (ex: ValidationException) {
+      return ex.message.toString()
     }
-    val categories = categoriesApi.getCategories()
-    return categories.contentToString()
+
+    return try {
+      val categories = Categories().getCategories(categoriesRequestDTO)
+      return categories.contentToString()
+    } catch (ex: ApiException) {
+      ex.message.toString()
+    }
+
   }
 
-  private fun resolveArguments(arguments: Array<String>) {
+  private fun resolveCategoriesRequestDTO(arguments: Array<String>): DefaultRequestDTO {
+    val requestDTO = DefaultRequestDTO()
+
     var index = 0
-    while (index < arguments.size){
-      val argument = arguments[index]
-      when (argument){
+    while (index < arguments.size) {
+      when (val argument = arguments[index]) {
         "lang" -> {
           index++
-          categoriesApi.language = arguments[index]
+          requestDTO.language = arguments[index]
         }
         "fields" -> {
           index++
-          categoriesApi.fields = arguments[index].split(",").toTypedArray()
+          requestDTO.fields = arguments[index].split(",").toTypedArray()
         }
         "order" -> {
           index++
-          categoriesApi.orderBy = arguments[index]
+          requestDTO.orderBy = arguments[index]
         }
         else -> {
           throw ValidationException("Unable to validate ${argument}")
@@ -39,5 +49,7 @@ class CategoriesCommand : Command {
       }
       index++
     }
+
+    return requestDTO
   }
 }

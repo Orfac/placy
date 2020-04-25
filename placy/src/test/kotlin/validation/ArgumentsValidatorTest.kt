@@ -3,8 +3,8 @@ package validation
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import placy.validation.ArgumentsValidator
-import placy.validation.ValidationException
+import placy.console.validation.ArgumentsValidator
+import placy.console.validation.ValidationException
 
 class ArgumentsValidatorTest {
 

@@ -1,27 +1,32 @@
 package placy.console.commands
 
+import placy.api.Categories
 import placy.api.Places
+import placy.api.exceptions.ApiException
 import placy.dto.requests.PlaceCommentsRequest
-import placy.dto.requests.PlaceDetailedRequest
-import placy.validation.ValidationException
+import placy.console.validation.ValidationException
 
 class PlaceCommentsCommand : Command {
-  val placesApi = Places
 
   override fun execute(arguments: Array<String>): String {
     val placesCommentsRequest: PlaceCommentsRequest
     try {
       placesCommentsRequest = resolveRequestData(arguments)
     } catch (ex: ValidationException) {
-      return ex.message ?: ""
+      return ex.message.toString()
     }
-    val placesComments = placesApi.getPlacesComments(placesCommentsRequest)
-    return placesComments.contentDeepToString()
+
+    return try {
+      val placesComments = Places().getPlacesComments(placesCommentsRequest)
+      return placesComments.contentDeepToString()
+    } catch (ex: ApiException) {
+      ex.message.toString()
+    }
   }
 
   private fun resolveRequestData(arguments: Array<String>): PlaceCommentsRequest {
 
-    if (arguments.isEmpty()){
+    if (arguments.isEmpty()) {
       throw ValidationException("In place command you need to specify at least place id")
     }
 

@@ -1,12 +1,11 @@
 package placy.console.commands
 
 import placy.api.Places
+import placy.api.exceptions.ApiException
 import placy.dto.requests.PlaceDetailedRequest
-import placy.dto.requests.PlacesRequest
-import placy.validation.ValidationException
+import placy.console.validation.ValidationException
 
 class PlaceCommand : Command {
-  val placesApi = Places
 
   override fun execute(arguments: Array<String>): String {
     val placeRequest: PlaceDetailedRequest
@@ -15,10 +14,11 @@ class PlaceCommand : Command {
     } catch (ex: ValidationException) {
       return ex.message ?: ""
     }
+
     return try {
-      val place = placesApi.getPlace(placeRequest)
+      val place = Places().getPlace(placeRequest)
       arrayOf(place).contentDeepToString()
-    } catch (ex : Exception) {
+    } catch (ex: ApiException) {
       ex.message.toString()
     }
 
@@ -26,17 +26,17 @@ class PlaceCommand : Command {
 
   private fun resolveRequestData(arguments: Array<String>): PlaceDetailedRequest {
 
-    if (arguments.isEmpty()){
+    if (arguments.isEmpty()) {
       throw ValidationException("In place command you need to specify at least place id")
     }
 
-    var id: Int
+    val id: Int
     try {
       id = arguments[0].toInt()
     } catch (ex: NumberFormatException) {
       throw ValidationException("Unable to get place id, given was ${arguments[0]}")
     }
-    var placeRequest = PlaceDetailedRequest(place_id = id)
+    val placeRequest = PlaceDetailedRequest(place_id = id)
 
     var index = 1
     while (index < arguments.size) {

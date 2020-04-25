@@ -1,4 +1,4 @@
-package placy.validation
+package placy.console.validation
 
 class ArgumentsValidator {
   companion object {

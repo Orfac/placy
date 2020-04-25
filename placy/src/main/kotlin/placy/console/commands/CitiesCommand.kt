@@ -1,43 +1,45 @@
 package placy.console.commands
 
 import placy.api.Cities
-import placy.validation.ValidationException
+import placy.api.exceptions.ApiException
+import placy.console.validation.ValidationException
+import placy.dto.requests.DefaultRequestDTO
 
 class CitiesCommand : Command {
-  val citiesApi = Cities
 
   override fun execute(arguments: Array<String>): String {
+    val citiesRequestData: DefaultRequestDTO
     try {
-      resolveArguments(arguments)
-    } catch (ex : ValidationException){
-      return ex.message ?: ""
+      citiesRequestData = resolveArguments(arguments)
+    } catch (ex: ValidationException) {
+      return ex.message.toString()
     }
-    return try{
-      val cities = citiesApi.getCities()
+
+    return try {
+      val cities = Cities().getCities(citiesRequestData)
       cities.contentToString()
-    } catch (ex : Exception){
+    } catch (ex: ApiException) {
       ex.message.toString()
     }
-
-
   }
 
-  private fun resolveArguments(arguments: Array<String>) {
+  private fun resolveArguments(arguments: Array<String>): DefaultRequestDTO {
+    val requestDTO = DefaultRequestDTO()
+
     var index = 0
-    while (index < arguments.size){
-      val argument = arguments[index]
-      when (argument){
+    while (index < arguments.size) {
+      when (val argument = arguments[index]) {
         "lang" -> {
           index++
-          citiesApi.language = arguments[index]
+          requestDTO.language = arguments[index]
         }
         "fields" -> {
           index++
-          citiesApi.fields = arguments[index].split(",").toTypedArray()
+          requestDTO.fields = arguments[index].split(",").toTypedArray()
         }
         "order" -> {
           index++
-          citiesApi.orderBy = arguments[index]
+          requestDTO.orderBy = arguments[index]
         }
         else -> {
           throw ValidationException("Unable to validate $argument")
@@ -45,5 +47,7 @@ class CitiesCommand : Command {
       }
       index++
     }
+
+    return requestDTO
   }
 }
