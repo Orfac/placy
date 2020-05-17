@@ -1,9 +1,11 @@
 package api
 
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.jackson.responseObject
 import com.github.kittinunf.result.Result
 import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -89,18 +91,23 @@ class CitiesTest {
   }
 
   private fun whenRetrieveCities() {
+    val fuel = mockk<Fuel>()
+
     val citiesApi = Cities()
     every {
-      Fuel.get(citiesApi.CITIES_URL, citiesRequest.toList()).responseObject<Array<City>>().third
+      fuel.get(citiesApi.CITIES_URL, citiesRequest.toList()).responseObject<Array<City>>().third
     } returns Result.Success(arrayOf(fulfilledCity(), fulfilledCity(), fulfilledCity()))
+
 
     citiesArray = citiesApi.getCities(citiesRequest)
   }
 
   private fun whenRetrieveCitiesWithoutSlugField() {
+    val fuel = mockk<Fuel>()
+
     val citiesApi = Cities()
     every {
-      Fuel.get(citiesApi.CITIES_URL, citiesRequest.toList()).responseObject<Array<City>>().third
+      fuel.get(citiesApi.CITIES_URL, citiesRequest.toList()).responseObject<Array<City>>().third
     } returns Result.Success(arrayOf(cityWithoutSlug(), cityWithoutSlug(), cityWithoutSlug()))
 
     citiesArray = citiesApi.getCities(citiesRequest)

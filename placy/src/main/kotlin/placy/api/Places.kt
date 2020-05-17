@@ -3,6 +3,7 @@ package placy.api
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.jackson.responseObject
 import com.github.kittinunf.result.Result
+import placy.api.exceptions.ApiException
 import placy.dto.Comment
 import placy.dto.Pageable
 import placy.dto.Place
@@ -21,7 +22,7 @@ class Places {
 
     when (result) {
       is Result.Failure -> {
-        throw Exception("Cannot get places from remote url $requestUrl")
+        throw ApiException("Cannot get places from remote url $requestUrl")
       }
       is Result.Success -> {
         return result.value.results
@@ -36,7 +37,7 @@ class Places {
 
     when (result) {
       is Result.Failure -> {
-        throw Exception("Cannot get places from remote url $requestUrl")
+        throw ApiException("Cannot get places from remote url $requestUrl")
       }
       is Result.Success -> {
         return result.value
@@ -51,7 +52,7 @@ class Places {
 
     when (result) {
       is Result.Failure -> {
-        throw Exception("Cannot get places from remote url $requestUrl")
+        throw ApiException("Cannot get places from remote url $requestUrl")
       }
       is Result.Success -> {
         return result.value.results

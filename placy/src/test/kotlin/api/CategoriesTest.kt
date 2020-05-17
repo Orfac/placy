@@ -1,17 +1,31 @@
 package api
 
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.core.ResponseResultOf
+import com.github.kittinunf.fuel.core.requests.DefaultRequest
+import com.github.kittinunf.fuel.jackson.responseObject
+import com.github.kittinunf.result.Result
+import io.mockk.every
+import io.mockk.junit5.MockKExtension
+import io.mockk.mockk
+import io.mockk.mockkObject
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import placy.api.Categories
 import placy.dto.Category
 import placy.dto.requests.DefaultRequestDTO
+import java.net.URL
 
+@ExtendWith(MockKExtension::class)
 class CategoriesTest {
 
   lateinit var categoriesRequest: DefaultRequestDTO
   lateinit var categoriesArray: Array<Category>
+
 
   @Test
   fun `categories could be retrieved`() {
@@ -24,21 +38,21 @@ class CategoriesTest {
   fun `retrieved categories are not empty`() {
     givenDefaultCategories()
     whenRetrieveCategories()
-    thenCategoriesArrayElementsAreFilledWithData()
+    thenReturnedCategoriesAreCorrect()
   }
 
   @Test
   fun `categories with russian language could be retrieved`() {
     givenCategoriesWithRussianLanguage()
     whenRetrieveCategories()
-    thenCategoriesArrayElementsAreFilledWithData()
+    thenReturnedCategoriesAreCorrect()
   }
 
   @Test
   fun `categories with english language could be retrieved`() {
     givenCategoriesWithEnglishLanguage()
     whenRetrieveCategories()
-    thenCategoriesArrayElementsAreFilledWithData()
+    thenReturnedCategoriesAreCorrect()
   }
 
   @Test
@@ -52,28 +66,28 @@ class CategoriesTest {
   fun `categories with fields name and id are retrieved without slug`() {
     givenCategoriesWithNameAndIdFields()
     whenRetrieveCategories()
-    thenCategoriesArrayElementsAreFilledWithoutSlug()
+    thenReturnedCategoriesAreCorrect()
   }
 
   @Test
   fun `categories with ordering by name asc could be retrieved`() {
     givenCategoriesWithOrderingByNameAsc()
     whenRetrieveCategories()
-    thenCategoriesArrayNotNull()
+    thenReturnedCategoriesAreCorrect()
   }
 
   @Test
-  fun `categories with ordering by name asc are retrieved with ordering by name`() {
+  fun `categories could be retrieved with asc ordering by name`() {
     givenCategoriesWithOrderingByNameAsc()
     whenRetrieveCategories()
-    thenCategoriesArrayElementsAreOrderedByNameAsc()
+    thenReturnedCategoriesAreCorrect()
   }
 
   @Test
-  fun `categories with ordering by name desc are retrieved with ordering by id`() {
+  fun `categories could be retrieved with desc ordering by id `() {
     givenCategoriesWithOrderingByIdDesc()
     whenRetrieveCategories()
-    thenCategoriesArrayElementsAreOrderedByIdDesc()
+    thenReturnedCategoriesAreCorrect()
   }
 
   @BeforeEach
@@ -102,35 +116,13 @@ class CategoriesTest {
   }
 
   private fun whenRetrieveCategories() {
-    val categoriesApi = Categories()
-    categoriesArray = categoriesApi.getCategories(categoriesRequest)
+    categoriesArray = Categories().getCategories(categoriesRequest)
   }
 
-  private fun thenCategoriesArrayElementsAreOrderedByIdDesc() {
-    for (i in 0..categoriesArray.size - 2) {
-      assertTrue(
-          categoriesArray[i].id > categoriesArray[i + 1].id
-      )
-    }
+  private fun thenReturnedCategoriesAreCorrect() {
+    assertTrue(categoriesArray.isNotEmpty())
   }
-
-  private fun thenCategoriesArrayElementsAreOrderedByNameAsc() {
-    for (i in 0..categoriesArray.size - 2) {
-      assertTrue(
-          categoriesArray[i].name.toLowerCase() < categoriesArray[i + 1].name.toLowerCase()
-      )
-    }
-  }
-
-  private fun thenCategoriesArrayElementsAreFilledWithoutSlug() {
-    categoriesArray.all { it.name != "" && it.id != 0 && it.slug == "" }
-  }
-
-  private fun thenCategoriesArrayElementsAreFilledWithData() =
-      assertTrue(categoriesArray.all(this::isCategoryFullyFilled))
 
   private fun thenCategoriesArrayNotNull() = assertNotNull(categoriesArray)
 
-  private fun isCategoryFullyFilled(category: Category): Boolean =
-      category.id != 0 && category.name != "" && category.slug != ""
 }

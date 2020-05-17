@@ -8,4 +8,9 @@ class AppTest {
   fun `main method runs without exceptions`(){
     App.main(emptyArray())
   }
+
+  @Test
+  fun `main method runs with wrong arguments`(){
+    App.main(arrayOf("bad_argument"))
+  }
 }
