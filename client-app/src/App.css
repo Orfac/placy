@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.hoverable:hover{
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+  background-color: whitesmoke;
+}
