@@ -19,13 +19,19 @@ class PlacyWebApplication {
           .port(port)
           .route { routes ->
             routes.get("/**") { request, response ->
-              response.sendString(
-                  client.get()
-                      .uri(request.uri())
-                      .responseContent()
-                      .aggregate()
-                      .asString()
-              )
+              response
+                  .addHeader("Access-Control-Allow-Origin", "*")
+                  .addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+                  .addHeader(
+                      "Access-Control-Allow-Headers",
+                      "X-Requested-With, Content-Type, Content-Length")
+                  .sendString(
+                      client.get()
+                          .uri(request.uri())
+                          .responseContent()
+                          .aggregate()
+                          .asString()
+                  )
             }
           }
           .bindNow()
