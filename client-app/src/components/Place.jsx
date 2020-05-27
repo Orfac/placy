@@ -22,7 +22,7 @@ const Place = (props) => {
                 <div className="col-md-4">
 
                     <img src={imgUrl} className="card-img" alt="place" />
-                    <a href={props.site_url} className="btn btn-outline-primary m-1">Перейти на сайт</a>
+                    <a href={props.site_url} className="btn btn-outline-primary m-2">Перейти на сайт</a>
                 </div>
 
 
