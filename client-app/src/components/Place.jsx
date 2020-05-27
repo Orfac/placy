@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Place = (props) => {
-    let imgUrl = props.images[0].image;
+    let imgUrl =  props.images == null || props.images[0] == null ? "" : props.images[0].image ;
     let description = props.description.replace("<p>", "").replace("</p>", "");
 
     return (

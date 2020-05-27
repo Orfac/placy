@@ -1,60 +1,30 @@
 import React, { useEffect, useState } from 'react';
 
-const Filter = (updateSettings, cities) => {
+const Filter = ({ updateSettings, cities }) => {
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [selectedCity, setSelectedCity] = useState("spb");
-    const [isFree, setIsFree] = useState(false);
-    const [isClose, setIsClosed] = useState(false);
-    const [lat, setLat] = useState(59.935020);
-    const [lon, setLon] = useState(30.327052);
-    const [radius, setRadius] = useState(99999);
-
-
 
     const handleFilterClick = () => { setIsFilterOpen(!isFilterOpen); }
 
-    const handleChangeIsFree = (e) => { 
-        setIsFree(e.currentTarget.checked); 
-        updateSettings(getCurrentSettings()); 
+    const handleChangeIsFree = (e) => {
+        updateSettings("is_free", e.currentTarget.checked);
     }
-    const handleChangeIsClosed = (e) => { 
-        setIsClosed(e.currentTarget.checked); 
-        updateSettings(getCurrentSettings()); 
+    const handleChangeIsClosed = (e) => {
+        updateSettings("include_inactual", e.currentTarget.checked);
     }
-    const handleCityChange = (e) => { 
-        setSelectedCity(e.currentTarget.value); 
-        updateSettings(getCurrentSettings());
-     }
+    const handleCityChange = (e) => {
+        updateSettings("location", e.currentTarget.value);
+    }
     const handleLatChange = (e) => {
-         setLat(e.currentTarget.value); 
-         updateSettings(getCurrentSettings());
+        updateSettings("lat", e.currentTarget.value);
     }
-    const handleLonChange = (e) => { 
-        setLon(e.currentTarget.value);
-         updateSettings(getCurrentSettings()); 
+    const handleLonChange = (e) => {
+        updateSettings("lon", e.currentTarget.value);
     }
-    const handleRadiusChange = (e) => { 
-        setRadius(e.currentTarget.value); 
-        updateSettings(getCurrentSettings()); 
+    const handleRadiusChange = (e) => {
+        updateSettings("radius", e.currentTarget.value);
     }
 
-    const getCurrentSettings = () => {
-        return {
-            "lat": lat,
-            "lon": lon,
-            "radius": radius,
-            "location": selectedCity,
-            "is_free": isFree,
-            "include_inactual": isClose
-        }
-    }
-
-    const renderCities = () => {
-        cities.map(
-            city => <option value={city.slug}>{city.name}</option>
-        )
-    }
     return (
         <div className="border border-warning rounded">
             <button className="btn btn-outline-warning w-100" onClick={handleFilterClick} >Фильтр</button>
@@ -66,7 +36,9 @@ const Filter = (updateSettings, cities) => {
                                 <div className="col-md-4 ">
                                     Город: <span>
                                         <select name="cities" id="cities" onChange={handleCityChange}>
-                                            {cities.length > 0 ? renderCities() : <option value="spb">Санкт-Петербург</option>}
+                                            {cities.length > 0 ? cities.map(
+                                                city => <option value={city.slug}>{city.name}</option>) 
+                                            : <option value="spb">Санкт-Петербург</option>}
                                         </select>
                                     </span>
                                 </div>
