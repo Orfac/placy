@@ -18,7 +18,7 @@ const App = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [cities, setCities] = useState([]);
-    const [query, setQuery] = useState("ресторан")
+    const [query, setQuery] = useState("")
 
     useEffect(() => {
         const init = async () => {
@@ -32,6 +32,7 @@ const App = () => {
     });
 
     const loadPlaces = async () => {
+        if (query.length == 0) return;
         setIsLoading(true);
         let placesJson = await getPlaces(settings,query);
         let previousPlaces = placesJson.results;
@@ -91,7 +92,7 @@ const App = () => {
 
                     {
                         isLoading ? 
-                            <img className="img-fluid" src={loader}></img> : 
+                            <img className="img-fluid" id="loader" src={loader}></img> : 
                             <ul className="list-group-flush ">
                                 {places.length > 0 ? <h5 className="mt-lg-5">Список мест</h5> : ""}
                                 {places.length > 0 ? renderPlaces() : ""}
