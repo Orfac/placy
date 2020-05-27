@@ -1,3 +1,103 @@
 {
-    "url":"http://localhost:8081"
+    "url": "http://localhost:8081",
+    "content": [
+        {
+            "id": 157,
+            "title": "Музей современного искусства Эрарта",
+            "address": "29-я линия В. О., д. 2",
+            "phone": "+7 812 324-08-09",
+            "description": "От музея современного искусства заранее ожидаешь чего-то новаторского, решительного. В Эрарте можно встретиться и с современными технологиями, и со смелыми экспериментами, и с подчас шокирующими объектами contemporary art.",
+            "site_url": "https://kudago.com/spb/place/erarta/",
+            "images": [
+                {
+                    "image": "https://kudago.com/media/images/place/83/20/83206505e69f74906bd996c42c4c0fc9.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                },
+                {
+                    "image": "https://kudago.com/media/images/place/de/89/de89ef20687ea507e57107bfdf0e5735.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                }
+            
+            ]
+        }, {
+            "id": 157,
+            "title": "Музей современного искусства Эрарта",
+            "address": "29-я линия В. О., д. 2",
+            "phone": "+7 812 324-08-09",
+            "description": "От музея современного искусства заранее ожидаешь чего-то новаторского, решительного. В Эрарте можно встретиться и с современными технологиями, и со смелыми экспериментами, и с подчас шокирующими объектами contemporary art.",
+            "site_url": "https://kudago.com/spb/place/erarta/",
+            "images": [
+                {
+                    "image": "https://kudago.com/media/images/place/83/20/83206505e69f74906bd996c42c4c0fc9.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                },
+                {
+                    "image": "https://kudago.com/media/images/place/de/89/de89ef20687ea507e57107bfdf0e5735.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                }
+            
+            ]
+        }, 
+        {
+            "id": 157,
+            "title": "Музей современного искусства Эрарта",
+            "address": "29-я линия В. О., д. 2",
+            "phone": "+7 812 324-08-09",
+            "description": "От музея современного искусства заранее ожидаешь чего-то новаторского, решительного. В Эрарте можно встретиться и с современными технологиями, и со смелыми экспериментами, и с подчас шокирующими объектами contemporary art.",
+            "site_url": "https://kudago.com/spb/place/erarta/",
+            "images": [
+                {
+                    "image": "https://kudago.com/media/images/place/83/20/83206505e69f74906bd996c42c4c0fc9.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                },
+                {
+                    "image": "https://kudago.com/media/images/place/de/89/de89ef20687ea507e57107bfdf0e5735.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                }
+            
+            ]
+        }, {
+            "id": 157,
+            "title": "Музей современного искусства Эрарта",
+            "address": "29-я линия В. О., д. 2",
+            "phone": "+7 812 324-08-09",
+            "description": "От музея современного искусства заранее ожидаешь чего-то новаторского, решительного. В Эрарте можно встретиться и с современными технологиями, и со смелыми экспериментами, и с подчас шокирующими объектами contemporary art.",
+            "site_url": "https://kudago.com/spb/place/erarta/",
+            "images": [
+                {
+                    "image": "https://kudago.com/media/images/place/83/20/83206505e69f74906bd996c42c4c0fc9.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                },
+                {
+                    "image": "https://kudago.com/media/images/place/de/89/de89ef20687ea507e57107bfdf0e5735.jpg",
+                    "source": {
+                        "name": "vk.com",
+                        "link": "https://vk.com/album-19191317_00"
+                    }
+                }
+            
+            ]
+        }
+    ]
 }
