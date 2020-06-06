@@ -1,8 +1,8 @@
 import config from './config.json'
 
-export async function getPlaces(settings, query) {
+export async function getPlaces(settings, query, page) {
     const parametersString = createParametersString(settings);
-    const response = await fetch(`${config.url}/search/?q=${query}${parametersString}`);
+    const response = await fetch(`${config.url}/search/?q=${query}&page=${page}${parametersString}`);
     return response.json();
 }
 export async function getPlaceInfo(id){
