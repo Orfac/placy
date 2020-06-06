@@ -36,8 +36,11 @@ const App = () => {
     const loadPlaces = async (currentPage) => {
         setIsNoResults(false);
         currentPage = (typeof currentPage !== 'number') ? 1 : currentPage;
-        console.log(currentPage);
-        if (query.length == 0) return;
+
+        if (query.length == 0) {
+            setIsNoResults(true);
+            return;
+        }
         setIsLoading(true);
         let placesJson = await getPlaces(settings, query, currentPage);
         setLatestResult(placesJson);
@@ -90,7 +93,7 @@ const App = () => {
                     <div className="ml-4">
                         <div className="row">
                             <div className="col-md-10">
-                                <input type="text" className="w-100 h-100"
+                                <input type="text" className="w-100 h-100" id="Main input"
                                     placeholder="Место, например 'ресторан'" onChange={handleUpdateQuery} />
                             </div>
                             <div className="col-md-2">

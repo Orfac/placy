@@ -49,7 +49,7 @@ const Filter = ({ updateSettings, cities }) => {
 
                                 <div className="col-md-4">
                                     Включая закрытые <span><input type="checkbox"
-                                        onChange={handleChangeIsClosed}></input></span>
+                                        name="isClosed" onChange={handleChangeIsClosed}></input></span>
                                 </div>
                             </div>
 
@@ -61,15 +61,15 @@ const Filter = ({ updateSettings, cities }) => {
                                     Область поиска:
                             </div>
                                 <div className="col-md-3">
-                                    Lat <input type="number" className="w-50 h-75"
+                                    Lat <input type="number" className="w-50 h-75" name="lat"
                                         onChange={handleLatChange} placeholder="59.935020" />
                                 </div>
                                 <div className="col-md-3">
-                                    Lon <input type="number" className="w-50 h-75"
+                                    Lon <input type="number" className="w-50 h-75" name="lon"
                                         onChange={handleLonChange} placeholder="30.327052" />
                                 </div>
                                 <div className="col-md-3">
-                                    Radius <input type="number" className="w-50 h-75"
+                                    Radius <input type="number" className="w-50 h-75" name="radius"
                                         onChange={handleRadiusChange} placeholder="99999" />
                                 </div>
                             </div>
