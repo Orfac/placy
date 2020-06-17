@@ -1,8 +1,7 @@
 package placy.frontend;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import placy.frontend.config.SeleniumBasicConfiguration;
 
 public class InitializationTest extends SeleniumBasicConfiguration {

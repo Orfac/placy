@@ -97,7 +97,7 @@ public class FilterTest extends SeleniumBasicConfiguration {
 
 
   private void withSelectedLat(){
-    WebElement element = driver.findElementByName("lan");
+    WebElement element = driver.findElementByName("lat");
     element.sendKeys("59.9");
   }
 
