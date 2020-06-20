@@ -29,7 +29,7 @@ class ExampleInstrumentedTest {
     }
 
     @get:Rule
-    val activityRule = ActivityTestRule(MapsActivity::class.java)
+    val activityRule = ActivityTestRule(ClientActivity::class.java)
 
     @Test fun listGoesOverTheFold() {
         onView(withText("Привет всем")).check(matches(isDisplayed()))

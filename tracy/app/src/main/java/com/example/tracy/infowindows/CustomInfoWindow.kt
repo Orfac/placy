@@ -20,7 +20,7 @@ class CustomInfoWindow(val context: Context) : GoogleMap.InfoWindowAdapter {
         var description = view.findViewById<TextView>(R.id.description)
 
         val infoData = location?.tag as InfoWindowData
-        head.setText(infoData.phone)
+        head.text = infoData.phone
         return view
 
     }
