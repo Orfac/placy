@@ -35,16 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="20dp"
-            android:contentDescription="Hello"
             android:onClick="doContent"
             android:src="@drawable/add"
             app:backgroundTint="#ff0000"/>
 
     </FrameLayout>
-    <!--    <Button-->
-    <!--        android:id="@+id/GetFreeDriver"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:onClick=""-->
-    <!--        android:text="Get free rider" />-->
 </LinearLayout>

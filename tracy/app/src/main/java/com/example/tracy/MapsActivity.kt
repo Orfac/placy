@@ -28,14 +28,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        points = ArrayList<LatLng>()
+        points = ArrayList()
         // Add a marker in Saint Petersburg
         val saintPetersburgLocation = LatLng(59.932473, 30.349142)
-        mMap.addMarker(MarkerOptions().position(saintPetersburgLocation).title("location is saint P"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(saintPetersburgLocation))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(saintPetersburgLocation, 12f))
-
-        mMap.setOnMapLongClickListener {
+        mMap.uiSettings.isMapToolbarEnabled = false
+        mMap.setOnMapClickListener {
             onClick(it)
         }
     }
