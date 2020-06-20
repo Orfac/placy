@@ -31,22 +31,10 @@ class ExampleInstrumentedTest {
     @get:Rule
     val activityRule = ActivityTestRule(ClientActivity::class.java)
 
-    @Test fun listGoesOverTheFold() {
-        onView(withText("Привет всем")).check(matches(isDisplayed()))
-    }
-
-    @Test fun fabIsDisplayed() {
-        onView(withId(R.id.fab)).check(matches(isDisplayed()))
-    }
 
     @Test fun mapIsDisplayed() {
         onView(withId(R.id.map)).check(matches(isDisplayed()))
     }
 
-    @Test fun fabIsCouldBeClicked() {
-        onView(withId(R.id.fab))
-            .perform(click())
-            .check(matches(isDisplayed()))
-    }
 
 }

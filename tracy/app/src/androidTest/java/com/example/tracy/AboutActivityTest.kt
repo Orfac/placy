@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class DriverActivityTest {
+class AboutActivityTest {
 
     @Test
     fun useAppContext() {
@@ -29,11 +29,16 @@ class DriverActivityTest {
     }
 
     @get:Rule
-    val activityRule = ActivityTestRule(DriverActivity::class.java)
+    val activityRule = ActivityTestRule(AboutActivity::class.java)
 
     @Test
     fun contentIsDisplayed() {
-        onView(withId(R.id.map)).check(matches(isDisplayed()))
+        onView(withId(R.id.textView5)).check(matches(isDisplayed()))
+        onView(withId(R.id.textView6)).check(matches(isDisplayed()))
+        onView(withId(R.id.textView4)).check(matches(isDisplayed()))
+        onView(withId(R.id.textView2)).check(matches(isDisplayed()))
+        onView(withId(R.id.textView3)).check(matches(isDisplayed()))
+        onView(withId(R.id.textView)).check(matches(isDisplayed()))
     }
 
 
