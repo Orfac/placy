@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="150sp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Название заказа"
+        android:textAlignment="center"/>
+
     <TextView
+        android:textSize="10sp"
         android:id="@+id/phone"
-        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="false"
         android:layout_marginTop="8dp"
+        android:textColor="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"/>
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        android:text="Телефон: +7999999999"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:textSize="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone"
+        android:text="Стоимость: 200 рублей"/>
 
     <TextView
         android:id="@+id/coordinates"
-        android:layout_width="wrap_content"
+        android:textSize="10sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone"/>
+        app:layout_constraintTop_toBottomOf="@+id/price"
+        android:text="Координаты: кооооординаты"/>
 
     <TextView
+        android:textSize="10sp"
         android:id="@+id/description"
-        android:layout_width="wrap_content"
+        android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:maxLines="4"
+        android:textColor="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coordinates"/>
+        app:layout_constraintTop_toBottomOf="@+id/coordinates"
+        android:text="Большое и очень длинное описание в несколько строк"/>
 
-</ConstraintLayout>
+</LinearLayout>

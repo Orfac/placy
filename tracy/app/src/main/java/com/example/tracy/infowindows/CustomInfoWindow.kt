@@ -15,12 +15,18 @@ class CustomInfoWindow(val context: Context) : GoogleMap.InfoWindowAdapter {
         val view = (context as Activity)
             .layoutInflater.inflate(R.layout.info_window_layout, null)
 
-        var head =  view.findViewById<TextView>(R.id.title)
+        var head =  view.findViewById<TextView>(R.id.name)
         var phone = view.findViewById<TextView>(R.id.phone)
+        var price = view.findViewById<TextView>(R.id.price)
         var description = view.findViewById<TextView>(R.id.description)
+        var coordinates = view.findViewById<TextView>(R.id.coordinates)
 
         val infoData = location?.tag as InfoWindowData
-        head.text = infoData.phone
+        head.text = infoData.name
+        phone.text = "Телефон: " + infoData.phone
+        price.text = "Стоимость: " + infoData.price
+        description.text = infoData.description
+        coordinates.text = "Широта: ${infoData.location.latitude}\nДолгота: ${infoData.location.longitude}"
         return view
 
     }
