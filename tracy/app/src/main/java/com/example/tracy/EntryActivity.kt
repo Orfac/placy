@@ -21,6 +21,16 @@ class EntryActivity : AppCompatActivity() {
         driverButton.setOnClickListener {
             onDriver()
         }
+
+        val aboutButton = findViewById<Button>(R.id.about)
+        aboutButton.setOnClickListener {
+            onAbout()
+        }
+    }
+
+    private fun onAbout() {
+        val intent = Intent(this, AboutActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onDriver() {
