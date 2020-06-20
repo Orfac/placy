@@ -16,6 +16,7 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.lang.Exception
 import java.lang.IllegalStateException
 import java.lang.NullPointerException
 
@@ -51,7 +52,7 @@ class OrderActivityTest {
         onView(withId(R.id.editTextTextPersonName)).check(matches(isDisplayed()))
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = Exception::class)
     fun allValuesCouldBeTypedAndSubmitted() {
         withDefaultPhone()
         withDefaultDescription()
