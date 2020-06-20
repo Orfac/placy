@@ -22,7 +22,7 @@ object Activities {
             }
         }
         if (currentActivity == null)
-            throw RuntimeException("Cannot get current activity")
+            throw IllegalStateException("Cannot get current activity")
         return currentActivity!!
     }
 }
