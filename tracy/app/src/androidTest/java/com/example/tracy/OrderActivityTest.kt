@@ -16,9 +16,6 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.lang.Exception
-import java.lang.IllegalStateException
-import java.lang.NullPointerException
 
 
 /**
@@ -50,21 +47,6 @@ class OrderActivityTest {
         onView(withId(R.id.editTextTextMultiLine)).check(matches(isDisplayed()))
         onView(withId(R.id.editTextTextPrice)).check(matches(isDisplayed()))
         onView(withId(R.id.editTextTextPersonName)).check(matches(isDisplayed()))
-    }
-
-    @Test(expected = Exception::class)
-    fun allValuesCouldBeTypedAndSubmitted() {
-        withDefaultPhone()
-        withDefaultDescription()
-        withDefaultName()
-        withDefaultPrice()
-
-        onView(withId(R.id.submit)).perform(click())
-
-        // this step should throw an exception to check that submission works correct
-        // but because this is test, we cannot handle new activity, so correct state is exception
-        Activities.getActivityInstance()
-
     }
 
     @Test

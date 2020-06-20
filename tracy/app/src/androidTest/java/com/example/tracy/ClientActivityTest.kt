@@ -40,27 +40,8 @@ class ClientActivityTest {
     }
 
     @Test
-    fun fabShowsIfSelectedTwoPointsAtMap(){
-        onView(withId(R.id.map)).perform(click())
-        onView(withId(R.id.map)).perform(GeneralClickAction(
-            Tap.SINGLE,
-            GeneralLocation.CENTER_LEFT,
-            Press.FINGER,
-            InputDevice.SOURCE_UNKNOWN,
-            MotionEvent.BUTTON_PRIMARY
-        ), GeneralClickAction(
-            Tap.SINGLE,
-            GeneralLocation.BOTTOM_CENTER,
-            Press.FINGER,
-            InputDevice.SOURCE_UNKNOWN,
-            MotionEvent.BUTTON_PRIMARY
-        ))
-
-        onView(withId(R.id.fab)).check(matches(isDisplayed()))
-    }
-
-    @Test
     fun fabCouldBeClicked(){
+        Thread.sleep(1000)
         onView(withId(R.id.map)).perform(click())
         onView(withId(R.id.map)).perform(GeneralClickAction(
             Tap.SINGLE,
@@ -75,6 +56,7 @@ class ClientActivityTest {
             InputDevice.SOURCE_UNKNOWN,
             MotionEvent.BUTTON_PRIMARY
         ))
+        Thread.sleep(1000)
 
         onView(withId(R.id.fab)).perform(click())
     }
